@@ -22,4 +22,23 @@ public class ModuleConfiguration
 
     [JsonPropertyName("InstallDebugTools")]
     public bool InstallDebugTools { get; set; } = false;
+
+    [JsonPropertyName("DBServerName")]
+    public string DBServerName { get; set; } = "localhost";
+
+    [JsonPropertyName("DBServerAuth")]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public DBServerAuthType DBServerAuth { get; set; } = DBServerAuthType.Windows;
+
+    [JsonPropertyName("DBServerUsername")]
+    public string DBServerUsername { get; set; } = string.Empty;
+
+    [JsonPropertyName("DBServerPassword")]
+    public string DBServerPassword { get; set; } = string.Empty;
+}
+
+public enum DBServerAuthType
+{
+    Windows,
+    SQL
 }

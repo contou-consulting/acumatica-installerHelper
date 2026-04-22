@@ -104,7 +104,22 @@ public class AcumaticaManager
             siteConfig = siteConfig with { SitePath = sitePath };
         }
 
+        siteConfig = ApplyDBServerDefaults(siteConfig);
+
         return _siteService.CreateSite(siteConfig);
+    }
+
+    private SiteConfiguration ApplyDBServerDefaults(SiteConfiguration siteConfig)
+    {
+        if (string.Equals(siteConfig.DBServer, "localhost", StringComparison.OrdinalIgnoreCase))
+            siteConfig = siteConfig with { DBServer = _configService.GetDBServerName() };
+
+        return siteConfig with
+        {
+            DBServerAuth     = _configService.GetDBServerAuth(),
+            DBServerUsername = _configService.GetDBServerUsername(),
+            DBServerPassword = _configService.GetDBServerPassword()
+        };
     }
 
     public bool RemoveSite(string siteName)
@@ -205,6 +220,51 @@ public class AcumaticaManager
     public void SetInstallDebugTools(bool install)
     {
         _configService.SetInstallDebugTools(install);
+    }
+
+    public string GetDBServerName()
+    {
+        return _configService.GetDBServerName();
+    }
+
+    public void SetDBServerName(string serverName)
+    {
+        _configService.SetDBServerName(serverName);
+    }
+
+    public DBServerAuthType GetDBServerAuth()
+    {
+        return _configService.GetDBServerAuth();
+    }
+
+    public void SetDBServerAuth(DBServerAuthType authType)
+    {
+        _configService.SetDBServerAuth(authType);
+    }
+
+    public string GetDBServerUsername()
+    {
+        return _configService.GetDBServerUsername();
+    }
+
+    public void SetDBServerUsername(string username)
+    {
+        _configService.SetDBServerUsername(username);
+    }
+
+    public string GetDBServerPassword()
+    {
+        return _configService.GetDBServerPassword();
+    }
+
+    public void SetDBServerPassword(string password)
+    {
+        _configService.SetDBServerPassword(password);
+    }
+
+    public bool HasDBServerPassword()
+    {
+        return _configService.HasDBServerPassword();
     }
 
     public bool RequiresAdministratorPrivileges()

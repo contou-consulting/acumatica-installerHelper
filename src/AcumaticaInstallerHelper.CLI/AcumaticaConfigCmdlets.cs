@@ -17,7 +17,11 @@ namespace AcumaticaInstallerHelper.CLI
                     SiteDirectory = AcumaticaManager.GetSiteDirectory(),
                     VersionDirectory = AcumaticaManager.GetVersionDirectory(),
                     DefaultSiteType = AcumaticaManager.GetDefaultSiteType(),
-                    InstallDebugTools = AcumaticaManager.GetInstallDebugTools()
+                    InstallDebugTools = AcumaticaManager.GetInstallDebugTools(),
+                    DBServerName = AcumaticaManager.GetDBServerName(),
+                    DBServerAuth = AcumaticaManager.GetDBServerAuth(),
+                    DBServerUsername = AcumaticaManager.GetDBServerUsername(),
+                    DBServerPasswordSet = AcumaticaManager.HasDBServerPassword()
                 };
                 
                 WriteObject(config);
@@ -134,6 +138,96 @@ namespace AcumaticaInstallerHelper.CLI
             catch (Exception ex)
             {
                 WriteError(new ErrorRecord(ex, "SetInstallDebugToolsException", ErrorCategory.NotSpecified, InstallDebugTools));
+            }
+        }
+    }
+
+    [Cmdlet(VerbsCommon.Set, "AcumaticaDBServerName")]
+    [OutputType(typeof(void))]
+    public class SetAcumaticaDBServerNameCmdlet : AcumaticaBaseCmdlet
+    {
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "SQL Server host name or instance (e.g. localhost, SERVER01\\SQLEXPRESS)")]
+        [ValidateNotNullOrEmpty]
+        public string ServerName { get; set; } = string.Empty;
+
+        protected override void ProcessRecord()
+        {
+            try
+            {
+                AcumaticaManager.SetDBServerName(ServerName);
+                WriteInformation($"DB server name set to: {ServerName}", new string[] { "Success" });
+            }
+            catch (Exception ex)
+            {
+                WriteError(new ErrorRecord(ex, "SetDBServerNameException", ErrorCategory.NotSpecified, ServerName));
+            }
+        }
+    }
+
+    [Cmdlet(VerbsCommon.Set, "AcumaticaDBServerAuth")]
+    [OutputType(typeof(void))]
+    public class SetAcumaticaDBServerAuthCmdlet : AcumaticaBaseCmdlet
+    {
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "Management auth mode used to create/modify the database (Windows or SQL)")]
+        [ValidateSet("Windows", "SQL")]
+        public DBServerAuthType AuthType { get; set; }
+
+        protected override void ProcessRecord()
+        {
+            try
+            {
+                AcumaticaManager.SetDBServerAuth(AuthType);
+                WriteInformation($"DB server auth set to: {AuthType}", new string[] { "Success" });
+            }
+            catch (Exception ex)
+            {
+                WriteError(new ErrorRecord(ex, "SetDBServerAuthException", ErrorCategory.NotSpecified, AuthType));
+            }
+        }
+    }
+
+    [Cmdlet(VerbsCommon.Set, "AcumaticaDBServerCredential")]
+    [OutputType(typeof(void))]
+    public class SetAcumaticaDBServerCredentialCmdlet : AcumaticaBaseCmdlet
+    {
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "SQL login used for management operations (only applies when DBServerAuth is SQL). Prompt with Get-Credential.")]
+        [ValidateNotNull]
+        [Credential]
+        public PSCredential Credential { get; set; } = PSCredential.Empty;
+
+        protected override void ProcessRecord()
+        {
+            try
+            {
+                string username = Credential.UserName;
+                string password = new System.Net.NetworkCredential(string.Empty, Credential.Password).Password;
+
+                AcumaticaManager.SetDBServerUsername(username);
+                AcumaticaManager.SetDBServerPassword(password);
+                WriteInformation($"DB server credential set for user: {username}", new string[] { "Success" });
+            }
+            catch (Exception ex)
+            {
+                WriteError(new ErrorRecord(ex, "SetDBServerCredentialException", ErrorCategory.NotSpecified, Credential.UserName));
+            }
+        }
+    }
+
+    [Cmdlet(VerbsCommon.Clear, "AcumaticaDBServerCredential")]
+    [OutputType(typeof(void))]
+    public class ClearAcumaticaDBServerCredentialCmdlet : AcumaticaBaseCmdlet
+    {
+        protected override void ProcessRecord()
+        {
+            try
+            {
+                AcumaticaManager.SetDBServerUsername(string.Empty);
+                AcumaticaManager.SetDBServerPassword(string.Empty);
+                WriteInformation("DB server credential cleared.", new string[] { "Success" });
+            }
+            catch (Exception ex)
+            {
+                WriteError(new ErrorRecord(ex, "ClearDBServerCredentialException", ErrorCategory.NotSpecified, null));
             }
         }
     }

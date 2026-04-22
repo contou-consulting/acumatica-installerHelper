@@ -10,7 +10,10 @@ public record SiteConfiguration
     public required SiteAction Action { get; init; }
     public required string SiteName { get; init; }
     public required string SitePath { get; init; }
-    public string DBServer { get; init; } = "(local)";
+    public string DBServer { get; init; } = "localhost";
+    public DBServerAuthType DBServerAuth { get; init; } = DBServerAuthType.Windows;
+    public string DBServerUsername { get; init; } = string.Empty;
+    public string DBServerPassword { get; init; } = string.Empty;
     public string DBName
     {
         get

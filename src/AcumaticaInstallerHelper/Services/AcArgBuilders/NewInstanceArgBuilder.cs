@@ -13,14 +13,28 @@ public class NewInstanceArgBuilder : IAcArgBuilder
             $"-ipath:\"{siteConfig.SitePath}\"",
             $"-dbsrvname:\"{siteConfig.DBServer}\"",
             $"-dbname:\"{siteConfig.DBName}\"",
-            "-dbsrvwinauth:True",
+        };
+
+        if (siteConfig.DBServerAuth == DBServerAuthType.SQL)
+        {
+            args.Add("-dbsrvwinauth:False");
+            args.Add($"-dbsrvuser:\"{siteConfig.DBServerUsername}\"");
+            args.Add($"-dbsrvpass:\"{siteConfig.DBServerPassword}\"");
+        }
+        else
+        {
+            args.Add("-dbsrvwinauth:True");
+        }
+
+        args.AddRange(new[]
+        {
             $"-swebsite:\"{siteConfig.IISWebsite}\"",
             $"-svirtdir:\"{siteConfig.SiteName}\"",
             $"-spool:\"{siteConfig.IISAppPool}\"",
             "-output:Quiet",
             "-company:\"CompanyID=1;CompanyType=;LoginName=;\"",
             "-company:\"CompanyID=2;CompanyType=SalesDemo;ParentID=1;Visible=Yes;LoginName=Company;\"",
-        };
+        });
 
         if (siteConfig.IsPortal)
         {

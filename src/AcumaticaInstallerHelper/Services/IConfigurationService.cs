@@ -21,6 +21,19 @@ public interface IConfigurationService
     
     bool GetInstallDebugTools();
     void SetInstallDebugTools(bool install);
-    
+
+    string GetDBServerName();
+    void SetDBServerName(string serverName);
+
+    DBServerAuthType GetDBServerAuth();
+    void SetDBServerAuth(DBServerAuthType authType);
+
+    string GetDBServerUsername();
+    void SetDBServerUsername(string username);
+
+    string GetDBServerPassword();
+    void SetDBServerPassword(string password);
+    bool HasDBServerPassword();
+
     string GetDefaultSiteInstallPath();
 }

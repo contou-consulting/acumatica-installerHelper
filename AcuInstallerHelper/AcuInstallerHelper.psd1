@@ -12,7 +12,7 @@
     RootModule        = 'AcumaticaInstallerHelper.PowerShell.dll'
 
     # Version number of this module.
-    ModuleVersion     = '1.0'
+    ModuleVersion     = '1.1.0'
 
     # ID used to uniquely identify this module
     GUID                 = '1b6c3d2f-b6df-48c8-8c6b-d324e89badf7'
@@ -81,6 +81,10 @@
         'Set-AcumaticaVersionDirectory',
         'Set-AcumaticaDefaultSiteType',
         'Set-AcumaticaInstallDebugTools',
+        'Set-AcumaticaDBServerName',
+        'Set-AcumaticaDBServerAuth',
+        'Set-AcumaticaDBServerCredential',
+        'Clear-AcumaticaDBServerCredential',
         'Test-AcumaticaPatch',
         'Install-AcumaticaPatch',
         'Restore-AcumaticaPatch',
@@ -115,6 +119,11 @@
 
             # ReleaseNotes of this module
             ReleaseNotes = @'
+            Version 1.1.0
+            - Added DB management server settings (Set-AcumaticaDBServerName, Set-AcumaticaDBServerAuth)
+            - Added SQL auth support for DB management with DPAPI-encrypted credential storage (Set-AcumaticaDBServerCredential, Clear-AcumaticaDBServerCredential)
+            - New-AcumaticaSite now honors configured DB server/auth/credential
+
             Version 1.0
             - Converted to Binary Module with C# cmdlets
             - Added comprehensive integration tests

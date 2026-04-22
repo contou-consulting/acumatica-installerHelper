@@ -125,6 +125,59 @@ public class ConfigurationService : IConfigurationService
         SaveConfiguration(config);
     }
 
+    public string GetDBServerName()
+    {
+        return GetConfiguration().DBServerName;
+    }
+
+    public void SetDBServerName(string serverName)
+    {
+        var config = GetConfiguration();
+        config.DBServerName = serverName;
+        SaveConfiguration(config);
+    }
+
+    public DBServerAuthType GetDBServerAuth()
+    {
+        return GetConfiguration().DBServerAuth;
+    }
+
+    public void SetDBServerAuth(DBServerAuthType authType)
+    {
+        var config = GetConfiguration();
+        config.DBServerAuth = authType;
+        SaveConfiguration(config);
+    }
+
+    public string GetDBServerUsername()
+    {
+        return GetConfiguration().DBServerUsername;
+    }
+
+    public void SetDBServerUsername(string username)
+    {
+        var config = GetConfiguration();
+        config.DBServerUsername = username;
+        SaveConfiguration(config);
+    }
+
+    public string GetDBServerPassword()
+    {
+        return CredentialProtector.Unprotect(GetConfiguration().DBServerPassword);
+    }
+
+    public void SetDBServerPassword(string password)
+    {
+        var config = GetConfiguration();
+        config.DBServerPassword = CredentialProtector.Protect(password);
+        SaveConfiguration(config);
+    }
+
+    public bool HasDBServerPassword()
+    {
+        return !string.IsNullOrEmpty(GetConfiguration().DBServerPassword);
+    }
+
     public string GetDefaultSiteInstallPath()
     {
         return Path.Combine(GetAcumaticaDirectory(), GetSiteDirectory());
