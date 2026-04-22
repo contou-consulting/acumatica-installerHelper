@@ -112,7 +112,7 @@
             LicenseUri           = 'https://www.gnu.org/licenses/gpl-3.0.html#license-text'
 
             # A URL to the main website for this project.
-            ProjectUri           = 'https://github.com/lekker-solutions/acumatica-installerHelper'
+            ProjectUri           = 'https://github.com/contou-consulting/acumatica-installerHelper'
 
             # A URL to an icon representing this module.
             # IconUri = ''
@@ -146,7 +146,7 @@
     } # End of PrivateData hashtable
 
     # HelpInfo URI of this module
-    HelpInfoURI       = 'https://github.com/lekker-solutions/acumatica-installerHelper/blob/main/README.md'
+    HelpInfoURI       = 'https://github.com/contou-consulting/acumatica-installerHelper/blob/main/README.md'
 
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''

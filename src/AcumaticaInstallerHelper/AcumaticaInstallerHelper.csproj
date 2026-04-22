@@ -11,8 +11,8 @@
     <Product>Acumatica Installer Helper</Product>
     <Description>C# library for managing Acumatica ERP installations, sites, and versions</Description>
     <Copyright>Copyright © Lekker Solutions 2024</Copyright>
-    <PackageProjectUrl>https://github.com/lekker-solutions/acumatica-installerHelper</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/lekker-solutions/acumatica-installerHelper</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/contou-consulting/acumatica-installerHelper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/contou-consulting/acumatica-installerHelper</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>acumatica;erp;installer;automation</PackageTags>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>

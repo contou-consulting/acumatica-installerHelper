@@ -34,7 +34,7 @@ Import-Module AcuInstallerHelper
 
 ```powershell
 # Clone the repository
-git clone https://github.com/lekker-solutions/acumatica-installerHelper.git
+git clone https://github.com/contou-consulting/acumatica-installerHelper.git
 
 # Import the module
 Import-Module ./acumatica-installerHelper/AcuInstallerHelper/AcuInstallerHelper.psd1
@@ -335,4 +335,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## Support
 
-For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/lekker-solutions/acumatica-installerHelper).
+For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/contou-consulting/acumatica-installerHelper).
